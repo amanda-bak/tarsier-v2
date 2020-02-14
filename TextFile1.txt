@@ -1,0 +1,28 @@
+private void UpdateHighlight(GameObject Control, bool Active, Color HighlightColor)
+    {
+        Renderer Render = Control.GetComponent<Renderer>(); // Get the renderer of the HighlightObject
+        float currentA = Render.;
+        if (Active) {      
+            Render.enabled = true; // Show the highlight
+            // If the highlight is transparent, increase its opacity until it's opaque
+            if (currentA < 1f) {
+                float a = currentA + Time.deltaTime * FadeSpeed; // Calculate the new opacity
+                // Change the highlight's color
+                block.SetColor("_BaseColor", new Color(HighlightColor.r, HighlightColor.g, HighlightColor.b, a));
+                Render.SetPropertyBlock(block);
+            }
+
+        }
+        else {
+            // If the highlight isn't fully transparent, decrease its opacity
+            if (currentA > 0f) {
+                float a = currentA - Time.deltaTime * FadeSpeed;
+                // Change the highlight's color
+                block.SetColor("_BaseColor", new Color(HighlightColor.r, HighlightColor.g, HighlightColor.b, a));
+                Render.SetPropertyBlock(block);
+            }
+            else { // Once the highlight is fully transparent, hide it
+                Render.enabled = false;
+            }
+        }
+    }
